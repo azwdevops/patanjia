@@ -4,12 +4,12 @@ import os
 
 from celery import Celery
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'src.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'patanjia.settings')
 
 BASE_REDIS_URL = os.environ.get('REDIS_URL', 'redis://localhost:6379')
 
 
-app = Celery('src')
+app = Celery('patanjia')
 
 app.config_from_object('django.conf:settings', namespace='CELERY')
 

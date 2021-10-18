@@ -1,6 +1,6 @@
 // import installed packages
 import { Link, useHistory, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { connect } from "react-redux";
 
 // import styles
 import "./Sidebar.css";
@@ -12,12 +12,15 @@ import "./Sidebar.css";
 
 // import redux API
 import { logout } from "../../../redux/actions/auth";
+import StaffLinks from "./Links/StaffLinks";
+import ValuerLinks from "./Links/ValuerLinks";
 
-const Sidebar = () => {
+const Sidebar = (props) => {
   const history = useHistory();
   const { pathname } = useLocation();
-  const dispatch = useDispatch();
-  const loggedIn = useSelector((state) => state.auth?.loggedIn);
+
+  const { logoutUser } = props;
+  const { loggedIn, profile_type } = props;
 
   return (
     <div className="left-navbar" id="nav-bar">
@@ -42,6 +45,14 @@ const Sidebar = () => {
           {/* protected links */}
           {loggedIn && (
             <>
+              {/* STAFF LINKS */}
+              {profile_type === "Staff" && (
+                <StaffLinks pathname={pathname} Link={Link} />
+              )}
+              {/* VALUER LINKS */}
+              {["Staff", "Valuer"].includes(profile_type) && (
+                <ValuerLinks pathname={pathname} Link={Link} />
+              )}
               <Link
                 to="/dashboard/"
                 className={
@@ -67,7 +78,7 @@ const Sidebar = () => {
               <Link
                 to=""
                 className="nav__link"
-                onClick={() => dispatch(logout(history))}
+                onClick={() => logoutUser(history)}
               >
                 <i className="bx bx-log-out-circle"></i>
                 <span className="nav__name">Logout</span>
@@ -80,4 +91,17 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+const mapStateToProps = (state) => {
+  return {
+    loggedIn: state.auth?.loggedIn,
+    profile_type: state.auth.user?.profile_type,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logoutUser: (history) => dispatch(logout(history)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);

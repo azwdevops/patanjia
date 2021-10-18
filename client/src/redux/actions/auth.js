@@ -16,16 +16,15 @@ export const signup_user = (newUser, resetForm) => async (dispatch) => {
   await api
     .signupUser(newUser)
     .then((res) => {
-      // dispatch({ type: AUTH_SUCCESS, payload: data?.user });
-      dispatch(setAlert(success, res.data?.detail));
+      window.alert(res.data?.detail);
       resetForm();
     })
     .catch((err) => {
       // if bad client request
       if (err.response?.status === 400) {
-        dispatch(setAlert(error, err.response.data?.detail));
+        window.alert(err.response.data?.detail);
       } else {
-        alert(unknown_error);
+        window.alert(unknown_error);
       }
     })
     .finally(() => {
@@ -129,28 +128,27 @@ export const reset_password = (email, resetForm) => async (dispatch) => {
 };
 
 // set new user password
-export const set_password = (newPasswords, password_token, history) => async (
-  dispatch
-) => {
-  await api
-    .setPassword(newPasswords, password_token)
-    .then((res) => {
-      alert(res.data?.detail);
-      dispatch({ type: actionTypes.CLOSE_PASSWORD_RESET_CONFIRM });
-      history.replace("/");
-      dispatch({ type: actionTypes.OPEN_LOGIN });
-    })
-    .catch((err) => {
-      if (err.response?.status === 400) {
-        dispatch(setAlert(error, err.response.data?.detail));
-      } else {
-        dispatch(setAlert(error, unknown_error));
-      }
-    })
-    .finally(() => {
-      dispatch({ type: actionTypes.STOP_LOADING });
-    });
-};
+export const set_password =
+  (newPasswords, password_token, history) => async (dispatch) => {
+    await api
+      .setPassword(newPasswords, password_token)
+      .then((res) => {
+        alert(res.data?.detail);
+        dispatch({ type: actionTypes.CLOSE_PASSWORD_RESET_CONFIRM });
+        history.replace("/");
+        dispatch({ type: actionTypes.OPEN_LOGIN });
+      })
+      .catch((err) => {
+        if (err.response?.status === 400) {
+          dispatch(setAlert(error, err.response.data?.detail));
+        } else {
+          dispatch(setAlert(error, unknown_error));
+        }
+      })
+      .finally(() => {
+        dispatch({ type: actionTypes.STOP_LOADING });
+      });
+  };
 
 // patch/update user data
 export const update_user = (updatedUser, userId) => async (dispatch) => {
@@ -173,28 +171,27 @@ export const update_user = (updatedUser, userId) => async (dispatch) => {
 };
 
 // user change password
-export const change_password = (passwords, userId, history) => async (
-  dispatch
-) => {
-  await api
-    .changePassword(passwords, userId)
-    .then((res) => {
-      alert(success, res.data?.detail);
-      dispatch({ type: actionTypes.CLOSE_CHANGE_PASSWORD });
-      dispatch(logout(history));
-      dispatch({ type: actionTypes.OPEN_LOGIN });
-    })
-    .catch((err) => {
-      if (err.response?.status === 400) {
-        dispatch(setAlert(error, err.response.data?.detail));
-      } else {
-        dispatch(setAlert(error, unknown_error));
-      }
-    })
-    .finally(() => {
-      dispatch({ type: actionTypes.STOP_LOADING });
-    });
-};
+export const change_password =
+  (passwords, userId, history) => async (dispatch) => {
+    await api
+      .changePassword(passwords, userId)
+      .then((res) => {
+        alert(success, res.data?.detail);
+        dispatch({ type: actionTypes.CLOSE_CHANGE_PASSWORD });
+        dispatch(logout(history));
+        dispatch({ type: actionTypes.OPEN_LOGIN });
+      })
+      .catch((err) => {
+        if (err.response?.status === 400) {
+          dispatch(setAlert(error, err.response.data?.detail));
+        } else {
+          dispatch(setAlert(error, unknown_error));
+        }
+      })
+      .finally(() => {
+        dispatch({ type: actionTypes.STOP_LOADING });
+      });
+  };
 
 // get user data
 export const get_user = () => async (dispatch) => {

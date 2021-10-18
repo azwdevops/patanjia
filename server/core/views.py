@@ -29,10 +29,10 @@ def validate_password(password):
         return "Password must be at least 8 characters", False
     elif re.search('[0-9]', password) is None:
         return "Password must contain a number", False
-    elif re.search('[A-Z]', password) is None:
-        return "Password must contain an uppercase letter", False
-    elif regex.search(password) is None:
-        return "Password must contain a special character", False
+    # elif re.search('[A-Z]', password) is None:
+    #     return "Password must contain an uppercase letter", False
+    # elif regex.search(password) is None:
+    #     return "Password must contain a special character", False
     else:
         return "", True
 
@@ -75,24 +75,25 @@ def get_object_or_none(model_name, **kwargs):
         return None
 
 
-
-#### TOKEN RELATED GENERATION, ENCODING AND DECODING
+# TOKEN RELATED GENERATION, ENCODING AND DECODING
 
 # method to generate an encoded token
 def generate_encoded_token(**kwargs):
     # kwargs can be any number of arguments in their key value pairs
     payload = {
         **kwargs,
-        "exp":datetime.utcnow() + timedelta(hours=24)
+        "exp": datetime.utcnow() + timedelta(hours=24)
     }
-    encoded_token = jwt.encode(payload, token_generation_key, algorithm="HS256")
+    encoded_token = jwt.encode(
+        payload, token_generation_key, algorithm="HS256")
     return encoded_token
 
 
 # method to decode an encoded token
 def decode_token(token):
     try:
-        decode_token = jwt.decode(token, token_generation_key, algorithms=["HS256"])
+        decode_token = jwt.decode(
+            token, token_generation_key, algorithms=["HS256"])
         return decode_token
     except jwt.ExpiredSignatureError:
         return 'expired token'
@@ -100,6 +101,6 @@ def decode_token(token):
         return 'invalid token'
 
 
-####### return error functions
+# return error functions
 def unknown_error():
     return Response({'detail': 'An unknown error occurred'}, status=400)

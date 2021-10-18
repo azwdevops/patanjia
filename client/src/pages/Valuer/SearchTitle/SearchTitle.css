@@ -1,0 +1,13 @@
+.search__input {
+  padding: 5px;
+  border-radius: 15px;
+  border: 2px solid grey;
+  outline: none;
+}
+.search__input:focus {
+  border: 2px solid dodgerblue;
+}
+
+.search__button {
+  margin-top: 10px;
+}
