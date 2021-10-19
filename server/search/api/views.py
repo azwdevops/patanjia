@@ -57,11 +57,12 @@ class ValuerTitleView(APIView):
 
     def post(self, request, **kwargs):
         user = verify_user(request, kwargs['userId'])
-        if not user:
-            return invalid_user()
+        # for now we disable authentication check
+        # if not user:
+        #     return invalid_user()
 
-        if user.profile_type not in ['Staff', 'Valuer']:
-            return Response({'detail': 'Permission denied'}, status=400)
+        # if user.profile_type not in ['Staff', 'Valuer']:
+        #     return Response({'detail': 'Permission denied'}, status=400)
         title = get_object_or_none(
             TitleCoordinate, title__iexact=request.data['titleNumber'])
         if not title:
