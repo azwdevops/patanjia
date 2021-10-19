@@ -31,7 +31,8 @@ DATABASES = {
         'NAME': config('DB_NAME'),
         'USER': config('DB_USER'),
         'PASSWORD': config('DB_USER_PASSWORD'),
-        'HOST': config('DB_HOST')
+        'HOST': config('DB_HOST'),
+        # 'HOST': 'ec2-18-218-105-67.us-east-2.compute.amazonaws.com'
     }
 }
 

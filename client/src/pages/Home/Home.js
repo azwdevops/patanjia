@@ -1,7 +1,9 @@
+import SearchTitle from "../Valuer/SearchTitle/SearchTitle";
+
 const Home = () => {
   return (
     <div>
-      <h1>Home</h1>
+      <SearchTitle />
     </div>
   );
 };

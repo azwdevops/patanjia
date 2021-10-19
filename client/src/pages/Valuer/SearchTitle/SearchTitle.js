@@ -57,7 +57,14 @@ const SearchTitle = (props) => {
         <br />
         {searchedTitle?.title !== "" && (
           <>
-            <p>{searchedTitle?.title} - view directions</p>
+            <iframe
+              title={searchedTitle?.title}
+              src={`https://maps.google.com/maps?q=${searchedTitle?.lat}, ${searchedTitle?.lon}&z=15&output=embed`}
+              width="1000"
+              height="500"
+              frameborder="0"
+              className="map__iframe"
+            />
           </>
         )}
       </div>

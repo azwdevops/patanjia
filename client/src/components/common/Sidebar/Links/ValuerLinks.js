@@ -12,7 +12,7 @@
 const ValuerLinks = ({ Link, pathname }) => {
   return (
     <>
-      <Link
+      {/* <Link
         to="/valuer/search-title/"
         className={
           `${pathname}` === "/valuer/search-title/"
@@ -22,7 +22,7 @@ const ValuerLinks = ({ Link, pathname }) => {
       >
         <i className="bx bx-search"></i>
         <span className="nav__name">Search</span>
-      </Link>
+      </Link> */}
     </>
   );
 };

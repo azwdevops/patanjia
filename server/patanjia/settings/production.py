@@ -5,13 +5,13 @@ from datetime import timedelta
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['patanjia.courzehub.com']
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = os.environ['SECRET_KEY_PATANJIA']
 
-SITE_NAME = os.environ['SITE_NAME']
+SITE_NAME = os.environ['SITE_NAME_PATANJIA']
 
 
 HEROKU = False
@@ -34,7 +34,7 @@ else:
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ['DB_NAME'],
+        'NAME': os.environ['DB_NAME_PATANJIA'],
         'USER': os.environ['DB_USER'],
         'PASSWORD': os.environ['DB_USER_PASSWORD'],
         'HOST': os.environ['DB_HOST']
@@ -56,7 +56,7 @@ EMAIL_USE_TLS = os.environ['EMAIL_USE_TLS']
 
 AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
-AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME_PATANJIA']
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
@@ -71,7 +71,7 @@ SIMPLE_JWT = {
     'UPDATE_LAST_LOGIN': True,
 
     'ALGORITHM': 'HS256',
-    'SIGNING_KEY': os.environ['TOKEN_GENERATION_SECRET'],
+    'SIGNING_KEY': os.environ['TOKEN_GENERATION_SECRET_PATANJIA'],
     'VERIFYING_KEY': None,
     'AUDIENCE': None,
     'ISSUER': None,

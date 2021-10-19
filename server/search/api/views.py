@@ -62,7 +62,6 @@ class ValuerTitleView(APIView):
 
         if user.profile_type not in ['Staff', 'Valuer']:
             return Response({'detail': 'Permission denied'}, status=400)
-        print(request.data)
         title = get_object_or_none(
             TitleCoordinate, title__iexact=request.data['titleNumber'])
         if not title:

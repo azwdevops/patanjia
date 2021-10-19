@@ -20,7 +20,7 @@ import ResetPasswordConfirm from "./pages/ResetPasswordConfirm";
 import NotFound from "./pages/NotFound/NotFound";
 import Profile from "./pages/Profile/Profile";
 import MaintainTitles from "./pages/Staff/MaintainTitles/MaintainTitles";
-import SearchTitle from "./pages/Valuer/SearchTitle/SearchTitle";
+// import SearchTitle from "./pages/Valuer/SearchTitle/SearchTitle";
 // import redux API
 import { get_user } from "./redux/actions/auth";
 
@@ -64,11 +64,13 @@ function App(props) {
             />
           )}
           {["Staff", "Valuer"].includes(profile_type) && (
-            <PrivateRoute
+            <>
+              {/* <PrivateRoute
               exact
               path="/valuer/search-title/"
               component={SearchTitle}
-            />
+            /> */}
+            </>
           )}
           <PrivateRoute exact path="/profile" component={Profile} />
           <PrivateRoute exact path="/dashboard/" component={Dashboard} />
