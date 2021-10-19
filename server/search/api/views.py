@@ -53,7 +53,7 @@ class TitleView(APIView):
 
 
 class ValuerTitleView(APIView):
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
 
     def post(self, request, **kwargs):
         user = verify_user(request, kwargs['userId'])
