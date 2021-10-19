@@ -13,20 +13,13 @@ SECRET_KEY = os.environ['SECRET_KEY_PATANJIA']
 
 SITE_NAME = os.environ['SITE_NAME_PATANJIA']
 
-
+CORS_ORIGIN_WHITELIST = ()
 HEROKU = False
 
 if HEROKU:
     import django_heroku
-    DEBUG = True  # for courzehub.herokuapp.com, we set debug to true to help with test environment testing
-    ALLOWED_HOSTS = []
-    CORS_ORIGIN_WHITELIST = ()
     # to help with database connection
     django_heroku.settings(locals())
-else:
-    DEBUG = False  # for courzehub.com, we set debug to false
-    ALLOWED_HOSTS = []
-    CORS_ORIGIN_WHITELIST = ()
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
