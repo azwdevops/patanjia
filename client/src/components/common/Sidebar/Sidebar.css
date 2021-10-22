@@ -64,7 +64,7 @@
 
 /*Add padding body movil*/
 .body-pd {
-  padding-left: calc(var(--nav-width) + 1rem);
+  /* padding-left: calc(var(--nav-width) + 1rem); */
 }
 
 /*Active links*/
