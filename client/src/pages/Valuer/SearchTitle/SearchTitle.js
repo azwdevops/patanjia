@@ -62,8 +62,9 @@ const SearchTitle = (props) => {
               src={`https://maps.google.com/maps?q=${searchedTitle?.lat}, ${searchedTitle?.lon}&z=15&output=embed`}
               width="1000"
               height="500"
-              frameborder="0"
+              frameBorder="0"
               className="map__iframe"
+              allowFullScreen
             />
           </>
         )}
