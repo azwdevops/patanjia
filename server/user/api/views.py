@@ -12,7 +12,7 @@ from core.views import validate_password, fields_empty, verify_user, get_object_
 
 
 # celery tasks
-from appemail.tasks import patanjia_send_user_activation_email_task, patanjia_send_password_reset_email_task
+from appemail.tasks import send_patanjia_user_activation_email_task, send_patanjia_password_reset_email_task
 
 
 User = get_user_model()
@@ -58,7 +58,8 @@ def register_user(request):
                 'username': user.username,
                 'userId': user.id.hex
             }
-            patanjia_send_user_activation_email_task.delay(**user_kwargs)
+            send_patanjia_user_activation_email_task.apply_async(
+                queue='patanjia', args=[], kwargs={**user_kwargs})
 
             return Response({'detail': 'Success. Check your email for the activation link.'}, status=201)
         else:
@@ -104,7 +105,8 @@ def resend_user_activation_email(request):
             'username': user.username,
             'userId': user.id.hex
         }
-        patanjia_send_user_activation_email_task.delay(**user_kwargs)
+        send_patanjia_user_activation_email_task.apply_async(
+            queue='patanjia', args=[], kwargs={**user_kwargs})
 
         return Response({'detail': 'Email activation sent'}, status=200)
 
@@ -226,7 +228,8 @@ def user_request_password_reset(request):
         'username': user.username,
         'userId': user.id.hex
     }
-    patanjia_send_password_reset_email_task.delay(**user_kwargs)
+    send_patanjia_password_reset_email_task.apply_async(
+        queue='patanjia', args=[], kwargs={**user_kwargs})
 
     return Response({'detail': 'Password reset instructions sent to mail'}, status=200)
 
