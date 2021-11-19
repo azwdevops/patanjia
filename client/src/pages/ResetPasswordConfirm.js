@@ -1,13 +1,12 @@
 // import installed packages
 import { useState } from "react";
 import { connect } from "react-redux";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 // import styles
-import "./ActivateAccount/ActivateAccount.css";
+import "./ActivateAccount/ActivateAccount.scss";
 // import material ui items
 import CircularProgress from "@material-ui/core/CircularProgress";
 // import shared/global items
-import globals from "../shared/globals";
 import { ifEmpty, resetFormValues } from "../shared/sharedFunctions";
 
 // import components/pages
@@ -19,20 +18,14 @@ import {
   OPEN_PASSWORD_RESET_CONFIRM,
   START_LOADING,
 } from "../redux/actions/types";
-import { setAlert } from "../redux/actions/shared";
 import { set_password } from "../redux/actions/auth";
 
 const ResetPasswordConfirm = (props) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { password_token } = useParams();
-  const { loading, alert, resetPasswordConfirmForm } = props; // extract state from props
-  const {
-    startLoading,
-    setNewPassword,
-    newAlert,
-    openNewPassword,
-    closeNewPassword,
-  } = props; // extract dispatch actions from props
+  const { loading, resetPasswordConfirmForm } = props; // extract state from props
+  const { startLoading, setNewPassword, openNewPassword, closeNewPassword } =
+    props; // extract dispatch actions from props
   const [newPasswords, setNewPasswords] = useState({
     new_password: "",
     confirm_password: "",
@@ -41,7 +34,6 @@ const ResetPasswordConfirm = (props) => {
   // destructure values for better code formatting
   // ########### start of destructuring #################  //
   const { new_password, confirm_password } = newPasswords;
-  const { error } = globals;
 
   // ########### end of destructuring #################  //
 
@@ -62,12 +54,12 @@ const ResetPasswordConfirm = (props) => {
   const handleSetNewPassword = (e) => {
     e.preventDefault();
     if (ifEmpty(newPasswords)) {
-      return newAlert(error, "Both fields are required");
+      return window.alert("Both fields are required");
     }
     startLoading();
 
     // call the signup action creator
-    setNewPassword(newPasswords, password_token, history);
+    setNewPassword(newPasswords, password_token, navigate);
   };
 
   return (
@@ -81,9 +73,6 @@ const ResetPasswordConfirm = (props) => {
       <MinDialog isOpen={resetPasswordConfirmForm}>
         <form className="dialog" id={loading ? "formSubmitting" : ""}>
           <h3>Enter new password</h3>
-          <p className={`response__message ${alert.alertType}`}>
-            {alert.status && alert.detail}
-          </p>
           <div className="dialog__rowSingleItem">
             <label htmlFor="">New Password</label>
             <input
@@ -125,7 +114,6 @@ const mapStateToProps = (state) => {
   return {
     loading: state.shared?.loading,
     resetPasswordConfirmForm: state.auth?.resetPasswordConfirmForm,
-    alert: state.shared?.alert,
   };
 };
 
@@ -136,7 +124,6 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(set_password(newPasswords, password_token, history)),
     openNewPassword: () => dispatch({ type: OPEN_PASSWORD_RESET_CONFIRM }),
     closeNewPassword: () => dispatch({ type: CLOSE_PASSWORD_RESET_CONFIRM }),
-    newAlert: (type, detail) => dispatch(setAlert(type, detail)),
   };
 };
 

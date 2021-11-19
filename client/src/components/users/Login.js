@@ -20,14 +20,12 @@ import {
   OPEN_SIGNUP,
   START_LOADING,
 } from "../../redux/actions/types";
-import { setAlert } from "../../redux/actions/shared";
 import { login } from "../../redux/actions/auth";
 
 const Login = (props) => {
-  const { loading, alert, loginForm } = props; // extract state from props
+  const { loading, loginForm } = props; // extract state from props
   const {
     startLoading,
-    newAlert,
     loginUser,
     closeLogin,
     openPasswordReset,
@@ -57,7 +55,7 @@ const Login = (props) => {
   const handleLogin = (e) => {
     e.preventDefault();
     if (ifEmpty(loginData)) {
-      return newAlert(error, "Email and password required");
+      return window.alert("Email and password required");
     }
     startLoading();
     // call the signup action creator
@@ -90,9 +88,6 @@ const Login = (props) => {
       <MinDialog isOpen={loginForm}>
         <form className="dialog" id={loading ? "formSubmitting" : ""}>
           <h3>Login here</h3>
-          <p className={`response__message ${alert.alertType}`}>
-            {alert.status && alert.detail}
-          </p>
           <div className="dialog__rowSingleItem">
             <label htmlFor="">Email</label>
             <input
@@ -161,13 +156,11 @@ const mapStateToProps = (state) => {
   return {
     loading: state.shared?.loading,
     loginForm: state.auth.loginForm,
-    alert: state.shared.alert,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     startLoading: () => dispatch({ type: START_LOADING }),
-    newAlert: (type, detail) => dispatch(setAlert(type, detail)),
     loginUser: (loginData, resetForm) => dispatch(login(loginData, resetForm)),
     closeLogin: () => dispatch({ type: CLOSE_LOGIN }),
     openPasswordReset: () => dispatch({ type: OPEN_FORGOT_PASSWORD }),

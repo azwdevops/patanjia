@@ -7,18 +7,12 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['patanjia.courzehub.com']
 
+CORS_ALLOWED_ORIGINS = [
+    'https://patanjia.azwgroup.com'
+]
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['SECRET_KEY_PATANJIA']
-
-SITE_NAME = os.environ['SITE_NAME_PATANJIA']
-
-HEROKU = False
-
-if HEROKU:
-    import django_heroku
-    # to help with database connection
-    django_heroku.settings(locals())
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -34,16 +28,12 @@ DATABASES = {
 }
 
 # email configurations for sending emails
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
 # not working when email is in environment, to be solved later
 # EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
 # not working when email password is in environment, to be solved later
 # EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
 EMAIL_HOST_USER = 'noreply.courzehub@gmail.com'
 EMAIL_HOST_PASSWORD = 'sousapzoqsbqymoa'
-EMAIL_USE_TLS = True
 
 
 #  AWS settings for media files
@@ -63,22 +53,17 @@ SIMPLE_JWT = {
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': True,
     'UPDATE_LAST_LOGIN': True,
-
     'ALGORITHM': 'HS256',
     'SIGNING_KEY': os.environ['TOKEN_GENERATION_SECRET_PATANJIA'],
     'VERIFYING_KEY': None,
     'AUDIENCE': None,
     'ISSUER': None,
-
     'AUTH_HEADER_TYPES': ('Bearer',),
     'USER_ID_FIELD': 'id',
     'USER_ID_CLAIM': 'user_id',
-
     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
     'TOKEN_TYPE_CLAIM': 'token_type',
-
     'JTI_CLAIM': 'jti',
-
     'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),

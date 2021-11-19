@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 // import styles
-import "./SearchTitle.css";
+import "./SearchTitle.scss";
 // import material ui items
 import CirculaProgress from "@material-ui/core/CircularProgress";
 // import shared/global items

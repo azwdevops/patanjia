@@ -13,11 +13,10 @@ import MediumDialog from "../common/MediumDialog";
 // import redux API
 import { CLOSE_SIGNUP, START_LOADING } from "../../redux/actions/types";
 import { signup_user } from "../../redux/actions/auth";
-import { setAlert } from "../../redux/actions/shared";
 
 const Signup = (props) => {
   const { loading, signupForm } = props; // get state from props
-  const { startLoading, closeSignup, newAlert, signupUser } = props; // get dispatch actions from props
+  const { startLoading, closeSignup, signupUser } = props; // get dispatch actions from props
 
   // internal state
   const [newUser, setNewUser] = useState({
@@ -48,11 +47,11 @@ const Signup = (props) => {
   const handleSignup = (e) => {
     e.preventDefault();
     if (ifEmpty(newUser)) {
-      return newAlert(error, fillFields);
+      return window.alert(fillFields);
     }
     // confirm passwords match
     if (password !== confirm_password) {
-      return newAlert(error, "Passwords should match");
+      return window.alert("Passwords should match");
     }
 
     // dispatch the loading action
@@ -69,7 +68,6 @@ const Signup = (props) => {
     <MediumDialog isOpen={signupForm}>
       <form className="dialog" id={loading ? "formSubmitting" : ""}>
         <h3>Create new account</h3>
-
         <div className="dialog__row">
           <span>
             <label htmlFor="">First Name</label>
@@ -159,7 +157,6 @@ const Signup = (props) => {
 const mapStateToProps = (state) => {
   return {
     signupForm: state.auth.signupForm,
-    alert: state.shared?.alert,
     loading: state.shared?.loading,
   };
 };
@@ -168,7 +165,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     startLoading: () => dispatch({ type: START_LOADING }),
     closeSignup: () => dispatch({ type: CLOSE_SIGNUP }),
-    newAlert: (type, detail) => dispatch(setAlert(type, detail)),
     signupUser: (newUser, resetForm) =>
       dispatch(signup_user(newUser, resetForm)),
   };

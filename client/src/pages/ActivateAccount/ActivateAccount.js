@@ -1,8 +1,8 @@
 // import installed packages
 import { connect } from "react-redux";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 // import styles
-import "./ActivateAccount.css";
+import "./ActivateAccount.scss";
 // import material ui items
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { activate_account } from "../../redux/actions/auth";
@@ -16,14 +16,14 @@ import { START_LOADING } from "../../redux/actions/types";
 
 const ActivateAccount = (props) => {
   const { activation_token } = useParams();
-  const history = useHistory();
+  const navigate = useNavigate();
   const { loading } = props; //get state from props
   const { startLoading, activateUser } = props; //get dispatch actions from props
 
   const handleActivate = () => {
     // dispatch the loading action
     startLoading();
-    activateUser(activation_token, history);
+    activateUser(activation_token, navigate);
   };
 
   return (

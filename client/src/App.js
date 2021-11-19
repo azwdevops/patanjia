@@ -1,10 +1,10 @@
 // import installed packages
 import { useEffect } from "react";
 import { connect } from "react-redux";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 // import styles
-import "./App.css";
+import "./App.scss";
 // import material ui items
 
 // import shared/global items
@@ -42,40 +42,42 @@ function App(props) {
       <Router>
         <Header />
         <Sidebar />
-        <Switch>
+        <Routes>
           {/* unauthenticated routes */}
-          <Route exact path="/" component={Home} />
+          <Route exact path="/" element={<Home />} />
           <Route
             exact
             path="/user/password-reset/:password_token/"
-            component={ResetPasswordConfirm}
+            element={<ResetPasswordConfirm />}
           />
           <Route
             exact
             path="/user/activate/:activation_token/"
-            component={ActivateAccount}
+            element={<ActivateAccount />}
           />
           {/* authenticated routes */}
-          {profile_type === "Staff" && (
-            <PrivateRoute
-              exact
-              path="/staff/maintain-titles/"
-              component={MaintainTitles}
-            />
-          )}
-          {["Staff", "Valuer"].includes(profile_type) && (
-            <>
-              {/* <PrivateRoute
+          <Route exact path="/" element={<PrivateRoute />}>
+            {profile_type === "Staff" && (
+              <Route
+                exact
+                path="/staff/maintain-titles/"
+                element={<MaintainTitles />}
+              />
+            )}
+            {["Staff", "Valuer"].includes(profile_type) && (
+              <>
+                {/* <Route
               exact
               path="/valuer/search-title/"
-              component={SearchTitle}
+              element={<SearchTitle />}
             /> */}
-            </>
-          )}
-          <PrivateRoute exact path="/profile" component={Profile} />
-          <PrivateRoute exact path="/dashboard/" component={Dashboard} />
-          <Route component={NotFound} />
-        </Switch>
+              </>
+            )}
+            <Route exact path="/profile" element={<Profile />} />
+            <Route exact path="/dashboard/" element={<Dashboard />} />
+          </Route>
+          <Route element={<NotFound />} />
+        </Routes>
       </Router>
     </div>
   );

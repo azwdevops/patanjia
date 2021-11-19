@@ -6,6 +6,8 @@ from datetime import timedelta
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
+SITE_NAME = 'Pata Njia'
+
 PRODUCTION = True
 
 # production settings
@@ -18,9 +20,6 @@ else:
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-CORS_ALLOW_ALL_ORIGINS = True
-
 
 # Application definition
 
@@ -106,6 +105,11 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 2
 }
 
+# email configurations for sending emails
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/

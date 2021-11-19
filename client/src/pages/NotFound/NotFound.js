@@ -1,5 +1,5 @@
 // styles
-import "./NotFound.css";
+import "./NotFound.scss";
 
 function NotFound() {
   return (

@@ -1,9 +1,9 @@
 // import installed packages
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // import styles
 
-import "./Header.css";
+import "./Header.scss";
 // import material ui items
 import Avatar from "@material-ui/core/Avatar";
 // import shared/global items
@@ -20,7 +20,7 @@ import { logout } from "../../../redux/actions/auth";
 
 const Header = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const session_cookie = localStorage.getItem("session_cookie");
   const username = useSelector((state) => state.auth.user?.username);
   const userImage = useSelector((state) => state.auth?.userImage);
@@ -51,7 +51,7 @@ const Header = () => {
                 <li>
                   <Link to="/dashboard/">Dashboard</Link>
                 </li>
-                <li onClick={() => dispatch(logout(history))}>Logout</li>
+                <li onClick={() => dispatch(logout(navigate))}>Logout</li>
               </ul>
             </>
           </div>
