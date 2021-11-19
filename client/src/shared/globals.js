@@ -6,6 +6,6 @@ const globals = {
   dev: false,
   liveProduction: true, // for patanjia.courzehub.com domain
   devHome: "http://localhost:8000", // for local development
-  productionHome: "http://patanjia.courzehub.com", // for live production
+  productionHome: "http://patanjia.azwgroup.com", // for live production
 };
 export default globals;
