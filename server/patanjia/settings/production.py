@@ -5,7 +5,7 @@ from datetime import timedelta
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['patanjia.courzehub.com']
+ALLOWED_HOSTS = ['patanjia.azwgroup.com']
 
 CORS_ALLOWED_ORIGINS = [
     'https://patanjia.azwgroup.com'
